@@ -1,6 +1,6 @@
 #  Expense Tracker
 
-A personal finance web application built with **ASP.NET Core 6 MVC** that helps you track income and expenses, visualize spending patterns, and manage your financial health — all in Indian Rupees (₹).
+A personal finance web application built with **ASP.NET Core 6 MVC** that helps you track income and expenses, visualize spending patterns, and manage your financial health 
 
 ---
 
