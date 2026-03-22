@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expense Tracker - @ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        body { background-color: #12161d; color: #fff; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+        .auth-card { background-color: #1a222b; border-radius: 1rem; padding: 2.5rem; width: 100%; max-width: 420px; }
+        .auth-card h2 { font-weight: 700; margin-bottom: 1.5rem; }
+        .form-control { background-color: #222b33; border: 1px solid #2e3a45; color: #fff; }
+        .form-control:focus { background-color: #222b33; color: #fff; border-color: #65da41; box-shadow: none; }
+        .form-label { color: #adb5bd; }
+        .btn-success { background-color: #65da41; border: none; color: #12161d; font-weight: 600; }
+        .btn-success:hover { background-color: #52c232; color: #12161d; }
+        a { color: #65da41; }
+        a:hover { color: #52c232; }
+        .text-danger { font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+    <div class="auth-card">
+        <div class="text-center mb-4">
+            <img src="~/logo.png" height="45" />
+        </div>
+        @RenderBody()
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,212 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expense Tracker</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    @*<link rel="stylesheet" href="https://cdn.syncfusion.com/ej2/20.1.55/material.css" />*@
+    <link href="https://cdn.syncfusion.com/ej2/20.1.55/bootstrap5-dark.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Expense_Tracker.styles.css" asp-append-version="true" />
+    <script src="https://cdn.syncfusion.com/ej2/20.1.55/dist/ej2.min.js"></script>
+</head>
+<body class="e-bigger">
+
+    <partial name="_SideBar" />
+
+    <div class="dock-target">
+
+        <nav class="navbar sticky-top">
+            <div class="container-fluid py-2 px-4">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <div class="d-flex align-items-center gap-2">
+
+                    <!-- Notifications -->
+                    <div class="nav-icon-wrapper dropdown">
+                        <i class="fa-solid fa-bell" id="notifDropdown" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                        <span class="nav-badge" id="notif-badge">3</span>
+                        <div class="dropdown-menu dropdown-menu-end nav-dropdown" aria-labelledby="notifDropdown">
+                            <div class="nav-dropdown-header">
+                                <span class="fw-bold">Notifications</span>
+                                <span class="text-success small" id="mark-notif-read" style="cursor:pointer;">Mark all read</span>
+                            </div>
+                            <div class="nav-dropdown-body" id="notif-list">
+                                <div class="nav-dropdown-item unread">
+                                    <i class="fa-solid fa-arrow-trend-up text-success"></i>
+                                    <div>
+                                        <div class="nav-item-title">Income recorded</div>
+                                        <div class="nav-item-sub">A new income transaction was added</div>
+                                        <div class="nav-item-time">Just now</div>
+                                    </div>
+                                </div>
+                                <div class="nav-dropdown-item unread">
+                                    <i class="fa-solid fa-arrow-trend-down text-danger"></i>
+                                    <div>
+                                        <div class="nav-item-title">Expense recorded</div>
+                                        <div class="nav-item-sub">A new expense transaction was added</div>
+                                        <div class="nav-item-time">2 mins ago</div>
+                                    </div>
+                                </div>
+                                <div class="nav-dropdown-item unread">
+                                    <i class="fa-solid fa-folder-plus text-warning"></i>
+                                    <div>
+                                        <div class="nav-item-title">Category created</div>
+                                        <div class="nav-item-sub">A new category was added</div>
+                                        <div class="nav-item-time">10 mins ago</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="nav-dropdown-footer">
+                                <a href="/Reports" class="text-success">View all activity</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Messages -->
+                    <div class="nav-icon-wrapper dropdown">
+                        <i class="fa-solid fa-message" id="msgDropdown" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                        <span class="nav-badge" id="msg-badge">2</span>
+                        <div class="dropdown-menu dropdown-menu-end nav-dropdown" aria-labelledby="msgDropdown">
+                            <div class="nav-dropdown-header">
+                                <span class="fw-bold">Messages</span>
+                                <span class="text-success small" id="mark-msg-read" style="cursor:pointer;">Mark all read</span>
+                            </div>
+                            <div class="nav-dropdown-body" id="msg-list">
+                                <div class="nav-dropdown-item unread">
+                                    <i class="fa-solid fa-circle-user fa-xl" style="color:#65da41;"></i>
+                                    <div>
+                                        <div class="nav-item-title">System</div>
+                                        <div class="nav-item-sub">Welcome to Expense Tracker!</div>
+                                        <div class="nav-item-time">Today</div>
+                                    </div>
+                                </div>
+                                <div class="nav-dropdown-item unread">
+                                    <i class="fa-solid fa-circle-info fa-xl" style="color:#2aa1ff;"></i>
+                                    <div>
+                                        <div class="nav-item-title">Tip</div>
+                                        <div class="nav-item-sub">Add categories before transactions</div>
+                                        <div class="nav-item-time">Today</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="nav-dropdown-footer">
+                                <span class="text-muted small">No more messages</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Profile -->
+                    <div class="nav-icon-wrapper dropdown">
+                        <i class="fa-solid fa-circle-user fa-2x" id="profileDropdown"
+                           data-bs-toggle="dropdown" aria-expanded="false"
+                           style="vertical-align:middle;"></i>
+                        <div class="dropdown-menu dropdown-menu-end nav-dropdown" aria-labelledby="profileDropdown">
+                            <div class="nav-dropdown-header">
+                                <i class="fa-solid fa-circle-user fa-2x" style="color:#65da41;"></i>
+                                <div class="ms-2">
+                                    <div class="fw-bold">@User.Identity?.Name</div>
+                                    <div class="text-muted small">Logged in</div>
+                                </div>
+                            </div>
+                            <div class="nav-dropdown-body" style="padding:0.5rem 0;">
+                                <a href="/Settings" class="profile-menu-item">
+                                    <i class="fa-solid fa-gear"></i> Settings
+                                </a>
+                                <a href="/Reports" class="profile-menu-item">
+                                    <i class="fa-solid fa-chart-simple"></i> Reports
+                                </a>
+                                <a href="/Transaction" class="profile-menu-item">
+                                    <i class="fa-solid fa-arrow-right-arrow-left"></i> Transactions
+                                </a>
+                                <hr style="border-color:#2e3a45;margin:0.5rem 0;" />
+                                <form asp-controller="Account" asp-action="Logout" method="post">
+                                    <button type="submit" class="profile-menu-item w-100 text-start" style="background:none;border:none;color:#ff4e48;">
+                                        <i class="fa-solid fa-right-from-bracket"></i> Logout
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </nav>
+
+
+        <div class="main-content">
+            <div class="container mt-5">
+                <div class="row justify-content-center">
+                    <div class="@(ViewData["isDashboard"] == null?"col-md-10":"col-md-12")">
+                        <main role="main" class="pb-3">
+                            @if (ViewData["isDashboard"] == null)
+                            {
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <div class="d-flex flex-column mb-5">
+                                            <div class="d-flex mb-1">
+                                                <div class="flex-grow-1">
+                                                    <h3 class="fw-bold">@ViewData["PageTitle"]</h3>
+                                                </div>
+                                                <div>
+                                                    @if (ViewData["PageActionText"] != null)
+                                                    {
+                                                        <a class="btn btn-success" href="@ViewData["PageActionUrl"]">
+                                                            @ViewData["PageActionText"]
+                                                        </a>
+                                                    }
+                                                </div>
+                                            </div>
+                                            <ejs-breadcrumb id="breadcrumb"
+                                                        separatorTemplate="@Html.Raw("<span class='fa-solid fa-angle-right'></span>")"></ejs-breadcrumb>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            @RenderBody()
+                        </main>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    <ejs-scripts></ejs-scripts>
+    <script>
+        // Mark notifications as read
+        document.getElementById('mark-notif-read')?.addEventListener('click', function () {
+            document.querySelectorAll('#notif-list .unread').forEach(el => el.classList.remove('unread'));
+            var badge = document.getElementById('notif-badge');
+            if (badge) badge.classList.add('hidden');
+        });
+        // Mark messages as read
+        document.getElementById('mark-msg-read')?.addEventListener('click', function () {
+            document.querySelectorAll('#msg-list .unread').forEach(el => el.classList.remove('unread'));
+            var badge = document.getElementById('msg-badge');
+            if (badge) badge.classList.add('hidden');
+        });
+        // Auto-hide badge when dropdown opened
+        document.getElementById('notifDropdown')?.addEventListener('click', function () {
+            setTimeout(() => {
+                var badge = document.getElementById('notif-badge');
+                if (badge) badge.classList.add('hidden');
+                document.querySelectorAll('#notif-list .unread').forEach(el => el.classList.remove('unread'));
+            }, 1500);
+        });
+        document.getElementById('msgDropdown')?.addEventListener('click', function () {
+            setTimeout(() => {
+                var badge = document.getElementById('msg-badge');
+                if (badge) badge.classList.add('hidden');
+                document.querySelectorAll('#msg-list .unread').forEach(el => el.classList.remove('unread'));
+            }, 1500);
+        });
+    </script>
+</body>
+</html>

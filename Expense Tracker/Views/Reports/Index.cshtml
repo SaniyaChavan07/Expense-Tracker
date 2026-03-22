@@ -1,0 +1,160 @@
+@{
+    ViewData["PageTitle"] = "Reports";
+}
+
+@* Date Filter *@
+<div class="widget p-4 mb-4">
+    <form method="get" asp-action="Index" class="row g-3 align-items-end">
+        <div class="col-md-4">
+            <label class="form-label text-muted">From Date</label>
+            <input type="date" name="startDate" value="@ViewBag.StartDate" class="form-control report-input" />
+        </div>
+        <div class="col-md-4">
+            <label class="form-label text-muted">To Date</label>
+            <input type="date" name="endDate" value="@ViewBag.EndDate" class="form-control report-input" />
+        </div>
+        <div class="col-md-4">
+            <button type="submit" class="btn btn-success w-100">
+                <i class="fa-solid fa-filter me-2"></i>Apply Filter
+            </button>
+        </div>
+    </form>
+</div>
+
+@* Summary Cards *@
+<div class="row mb-4 g-3">
+    <div class="col-md-4">
+        <div class="d-flex flex-row widget summary income">
+            <div class="d-flex flex-column justify-content-center p-4">
+                <i class="fa-solid fa-indian-rupee-sign fa-2xl"></i>
+            </div>
+            <div class="d-flex flex-column m-auto py-3">
+                <span class="lead">Total Income</span>
+                <h2 class="fw-bold">@ViewBag.TotalIncome</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="d-flex flex-row widget summary expense">
+            <div class="d-flex flex-column justify-content-center p-4">
+                <i class="fa-solid fa-indian-rupee-sign fa-2xl"></i>
+            </div>
+            <div class="d-flex flex-column m-auto py-3">
+                <span class="lead">Total Expense</span>
+                <h2 class="fw-bold">@ViewBag.TotalExpense</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="d-flex flex-row widget summary balance">
+            <div class="d-flex flex-column justify-content-center p-4">
+                <i class="fa-solid fa-indian-rupee-sign fa-2xl"></i>
+            </div>
+            <div class="d-flex flex-column m-auto py-3">
+                <span class="lead">Net Balance</span>
+                <h2 class="fw-bold">@ViewBag.Balance</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Charts *@
+<div class="row mb-4 g-3">
+    <div class="col-md-7">
+        <div class="widget chart p-4">
+            <h5 class="fw-bold mb-3">Monthly Income vs Expense</h5>
+            <ejs-chart id="monthly-chart" background="#1a222b"
+                       palettes=@(new string[]{"#54ffa9","#ffe91a"})>
+                <e-chart-primaryxaxis valueType="Category">
+                    <e-majorgridlines width="0"></e-majorgridlines>
+                    <e-majorticklines width="0"></e-majorticklines>
+                </e-chart-primaryxaxis>
+                <e-chart-primaryyaxis>
+                    <e-majorgridlines width="1" color="#32414d" dashArray="3,5"></e-majorgridlines>
+                    <e-majorticklines width="0"></e-majorticklines>
+                    <e-linestyle width="0"></e-linestyle>
+                </e-chart-primaryyaxis>
+                <e-chart-chartarea>
+                    <e-chartarea-border width="0"></e-chartarea-border>
+                </e-chart-chartarea>
+                <e-series-collection>
+                    <e-series dataSource="@ViewBag.MonthlyData" xName="month" yName="income"
+                              name="Income" type="@Syncfusion.EJ2.Charts.ChartSeriesType.Column" width="2"></e-series>
+                    <e-series dataSource="@ViewBag.MonthlyData" xName="month" yName="expense"
+                              name="Expense" type="@Syncfusion.EJ2.Charts.ChartSeriesType.Column" width="2"></e-series>
+                </e-series-collection>
+                <e-chart-legendsettings position="Top" alignment="Far" toggleVisibility="false">
+                    <e-legendsettings-textstyle color="#fff" size="1rem"></e-legendsettings-textstyle>
+                </e-chart-legendsettings>
+                <e-chart-tooltipsettings enable shared></e-chart-tooltipsettings>
+            </ejs-chart>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="widget chart p-4">
+            <h5 class="fw-bold mb-3">Expense by Category</h5>
+            <ejs-accumulationchart id="report-doughnut" enableSmartLabels background="#1a222b">
+                <e-accumulation-series-collection>
+                    <e-accumulation-series dataSource="@ViewBag.ExpenseCategoryBreakdown"
+                                           xName="title" yName="total" innerRadius="50%"
+                                           palettes=@(new string[]{"#0e8d76","#a4b219","#cb9b00","#8a442c","#0454b5","#7d0a0a","#822690","#4c2090"})>
+                        <e-accumulationseries-datalabel name="formattedTotal" visible></e-accumulationseries-datalabel>
+                    </e-accumulation-series>
+                </e-accumulation-series-collection>
+                <e-accumulationchart-legendsettings position="Bottom" toggleVisibility="false">
+                    <e-legendsettings-textstyle color="#fff" size="0.8rem"></e-legendsettings-textstyle>
+                </e-accumulationchart-legendsettings>
+                <e-accumulationchart-tooltipsettings enable></e-accumulationchart-tooltipsettings>
+            </ejs-accumulationchart>
+        </div>
+    </div>
+</div>
+
+@* Category Breakdown Table *@
+<div class="row mb-4 g-3">
+    <div class="col-md-12">
+        <div class="widget p-4">
+            <h5 class="fw-bold mb-3">Category Breakdown</h5>
+            <ejs-grid id="category-breakdown" dataSource="@ViewBag.CategoryBreakdown" gridLines="None" allowSorting="true">
+                <e-grid-columns>
+                    <e-grid-column headerText="Category" field="title"></e-grid-column>
+                    <e-grid-column headerText="Type" field="type" template="#reportTypeTemplate" width="120px"></e-grid-column>
+                    <e-grid-column headerText="Transactions" field="count" width="140px" textAlign="Center"></e-grid-column>
+                    <e-grid-column headerText="Total Amount" field="formattedTotal" textAlign="Right" width="160px"></e-grid-column>
+                </e-grid-columns>
+            </ejs-grid>
+        </div>
+    </div>
+</div>
+
+@* All Transactions Table *@
+<div class="row">
+    <div class="col-md-12">
+        <div class="widget p-4">
+            <h5 class="fw-bold mb-3">All Transactions</h5>
+            <ejs-grid id="all-transactions" dataSource="@ViewBag.Transactions" gridLines="None"
+                      allowSorting="true" allowPaging="true">
+                <e-grid-pagesettings pageSize="10"></e-grid-pagesettings>
+                <e-grid-columns>
+                    <e-grid-column headerText="Category" field="CategoryTitleWithIcon"></e-grid-column>
+                    <e-grid-column headerText="Date" field="Date" type="date" format="MMM-dd-yy" width="130px"></e-grid-column>
+                    <e-grid-column headerText="Note" field="Note"></e-grid-column>
+                    <e-grid-column headerText="Amount" field="FormattedAmount" textAlign="Right" width="140px"></e-grid-column>
+                </e-grid-columns>
+            </ejs-grid>
+        </div>
+    </div>
+</div>
+
+<script id="reportTypeTemplate" type="text/x-template">
+    ${if(type=="Income")}
+        <span class="badge bg-success">${type}</span>
+    ${else}
+        <span class="badge bg-danger">${type}</span>
+    ${/if}
+</script>
+
+<style>
+    .report-input { background-color: #222b33; border: 1px solid #2e3a45; color: #fff; }
+    .report-input:focus { background-color: #222b33; color: #fff; border-color: #65da41; box-shadow: none; }
+</style>

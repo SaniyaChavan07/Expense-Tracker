@@ -1,0 +1,104 @@
+@model Expense_Tracker.Models.SettingsViewModel
+@{
+    ViewData["PageTitle"] = "Settings";
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="fa-solid fa-circle-check me-2"></i>@TempData["Success"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="fa-solid fa-circle-exclamation me-2"></i>@TempData["Error"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<div class="row g-4">
+
+    @* Profile Settings *@
+    <div class="col-md-6">
+        <div class="widget p-4">
+            <div class="d-flex align-items-center mb-4">
+                <i class="fa-solid fa-circle-user fa-2x me-3" style="color:#65da41;"></i>
+                <h5 class="fw-bold mb-0">Profile Settings</h5>
+            </div>
+            <form asp-action="UpdateProfile" method="post">
+                <div class="mb-3">
+                    <label asp-for="UserName" class="form-label text-muted"></label>
+                    <input asp-for="UserName" class="form-control settings-input" />
+                    <span asp-validation-for="UserName" class="text-danger small"></span>
+                </div>
+                <div class="mb-4">
+                    <label asp-for="Email" class="form-label text-muted"></label>
+                    <input asp-for="Email" class="form-control settings-input" />
+                    <span asp-validation-for="Email" class="text-danger small"></span>
+                </div>
+                <button type="submit" class="btn btn-success px-4">
+                    <i class="fa-solid fa-floppy-disk me-2"></i>Save Profile
+                </button>
+            </form>
+        </div>
+    </div>
+
+    @* Password Settings *@
+    <div class="col-md-6">
+        <div class="widget p-4">
+            <div class="d-flex align-items-center mb-4">
+                <i class="fa-solid fa-lock fa-2x me-3" style="color:#65da41;"></i>
+                <h5 class="fw-bold mb-0">Change Password</h5>
+            </div>
+            <form asp-action="ChangePassword" method="post">
+                <div class="mb-3">
+                    <label asp-for="CurrentPassword" class="form-label text-muted"></label>
+                    <input asp-for="CurrentPassword" class="form-control settings-input" placeholder="Enter current password" />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="NewPassword" class="form-label text-muted"></label>
+                    <input asp-for="NewPassword" class="form-control settings-input" placeholder="Enter new password" />
+                </div>
+                <div class="mb-4">
+                    <label asp-for="ConfirmNewPassword" class="form-label text-muted"></label>
+                    <input asp-for="ConfirmNewPassword" class="form-control settings-input" placeholder="Confirm new password" />
+                </div>
+                <button type="submit" class="btn btn-success px-4">
+                    <i class="fa-solid fa-key me-2"></i>Change Password
+                </button>
+            </form>
+        </div>
+    </div>
+
+    @* Danger Zone *@
+    <div class="col-md-12">
+        <div class="widget p-4" style="border:1px solid #ff4e4833;">
+            <form asp-controller="Account" asp-action="Logout" method="post">
+                <button type="submit" class="btn btn-danger px-4">
+                    <i class="fa-solid fa-right-from-bracket me-2"></i>Logout
+                </button>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<style>
+    .settings-input {
+        background-color: #222b33;
+        border: 1px solid #2e3a45;
+        color: #fff;
+    }
+    .settings-input:focus {
+        background-color: #222b33;
+        color: #fff;
+        border-color: #65da41;
+        box-shadow: none;
+    }
+</style>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
