@@ -1,23 +1,23 @@
-# 💰 Expense Tracker
+#  Expense Tracker
 
-A personal finance web application built with **ASP.NET Core 6 MVC** that helps you track income and expenses, visualize spending patterns, and manage your financial health — all in Indian Rupees (₹).
-
----
-
-## ✨ Features
-
-- 🔐 **User Authentication** — Register, login, logout with ASP.NET Core Identity
-- 📂 **Category Management** — Create Income/Expense categories with custom icons
-- 💸 **Transaction Tracking** — Add, edit, and delete income/expense transactions
-- 📊 **Dashboard** — 7-day summary with doughnut and spline charts
-- 📈 **Reports** — Date-range filtered analytics with monthly bar charts and category breakdowns
-- ⚙️ **Settings** — Update profile (username/email) and change password
-- 🔔 **Navbar** — Notification panel, message panel, and profile dropdown
-- 🇮🇳 **INR Currency** — All amounts displayed in ₹ using Indian number formatting
+A personal finance web application built with **ASP.NET Core 6 MVC** that helps you track income and expenses, visualize spending patterns, and manage your financial health 
 
 ---
 
-## 🖥️ Tech Stack
+##  Features
+
+-  **User Authentication** — Register, login, logout with ASP.NET Core Identity
+-  **Category Management** — Create Income/Expense categories with custom icons
+-  **Transaction Tracking** — Add, edit, and delete income/expense transactions
+-  **Dashboard** — 7-day summary with doughnut and spline charts
+-  **Reports** — Date-range filtered analytics with monthly bar charts and category breakdowns
+-  **Settings** — Update profile (username/email) and change password
+-  **Navbar** — Notification panel, message panel, and profile dropdown
+
+
+---
+
+##  Tech Stack
 
 | Layer | Technology |
 |-------|-----------|
@@ -32,7 +32,7 @@ A personal finance web application built with **ASP.NET Core 6 MVC** that helps 
 
 ---
 
-## 📋 Prerequisites
+##  Prerequisites
 
 Before running this project, make sure you have the following installed:
 
@@ -45,12 +45,12 @@ Before running this project, make sure you have the following installed:
 
 ---
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/CodAffection/Expense-Tracker-App-in-Asp.Net-Core-MVC.git
+git clone https://github.com/SaniyaChavan07/Expense-Tracker.git
 cd "Expense-Tracker-App"
 ```
 
@@ -100,50 +100,7 @@ You will be redirected to the **Login** page. Click **Register** to create your 
 
 ---
 
-## 📁 Project Structure
-
-```
-Expense-Tracker-App/
-│
-├── Expense Tracker/
-│   ├── Controllers/
-│   │   ├── AccountController.cs       # Register, Login, Logout
-│   │   ├── CategoryController.cs      # Category CRUD
-│   │   ├── DashboardController.cs     # Dashboard data & charts
-│   │   ├── TransactionController.cs   # Transaction CRUD
-│   │   ├── ReportsController.cs       # Date-filtered reports
-│   │   └── SettingsController.cs      # Profile & password update
-│   │
-│   ├── Models/
-│   │   ├── ApplicationDbContext.cs    # EF Core DbContext
-│   │   ├── Category.cs                # Category entity
-│   │   ├── Transaction.cs             # Transaction entity
-│   │   ├── AccountViewModels.cs       # Register & Login view models
-│   │   └── SettingsViewModel.cs       # Settings view model
-│   │
-│   ├── Views/
-│   │   ├── Account/                   # Login, Register pages
-│   │   ├── Category/                  # Category list & form
-│   │   ├── Dashboard/                 # Dashboard page
-│   │   ├── Transaction/               # Transaction list & form
-│   │   ├── Reports/                   # Reports page
-│   │   ├── Settings/                  # Settings page
-│   │   └── Shared/                    # Layout, Sidebar, Auth Layout
-│   │
-│   ├── Migrations/                    # EF Core database migrations
-│   ├── wwwroot/                       # Static files (CSS, JS, images)
-│   ├── appsettings.json               # App configuration
-│   └── Program.cs                     # App startup & DI registration
-│
-├── SRS_Document.md                    # Software Requirements Specification
-├── Document_of_Understanding.md       # Technical understanding document
-├── RunApp.bat                         # One-click run script
-└── README.md                          # This file
-```
-
----
-
-## 🗄️ Database Schema
+##  Database Schema
 
 ```
 ┌─────────────────┐         ┌──────────────────────┐
@@ -167,7 +124,7 @@ Expense-Tracker-App/
 
 ---
 
-## 📸 Pages Overview
+##  Pages Overview
 
 | Page | Route | Description |
 |------|-------|-------------|
@@ -181,7 +138,7 @@ Expense-Tracker-App/
 
 ---
 
-## 🔒 Security
+##  Security
 
 - All routes (except Login/Register) are protected with `[Authorize]`
 - Passwords are hashed using **PBKDF2** via ASP.NET Core Identity
@@ -190,7 +147,7 @@ Expense-Tracker-App/
 
 ---
 
-## 📦 NuGet Packages
+##  NuGet Packages
 
 | Package | Version |
 |---------|---------|
@@ -203,7 +160,7 @@ Expense-Tracker-App/
 
 ---
 
-## ⚙️ Configuration
+##  Configuration
 
 ### Connection String (`appsettings.json`)
 ```json
@@ -223,7 +180,7 @@ options.Password.RequireUppercase = false;
 
 ---
 
-## 🛠️ Common Commands
+##  Common Commands
 
 ```cmd
 # Restore packages
@@ -249,22 +206,10 @@ dotnet ef migrations remove
 
 ---
 
-## 📄 Documentation
+##  Documentation
 
 | Document | Description |
 |----------|-------------|
 | [SRS_Document.md](./SRS_Document.md) | Full Software Requirements Specification |
 | [Document_of_Understanding.md](./Document_of_Understanding.md) | Technical walkthrough of how the app works |
 
----
-
-## 🙏 Credits
-
-- Original project by [CodAffection](https://github.com/CodAffection/Expense-Tracker-App-in-Asp.Net-Core-MVC)
-- Extended with authentication, reports, settings, INR currency, and UI improvements
-
----
-
-## 📝 License
-
-This project is for educational purposes. Refer to the original repository for license details.
