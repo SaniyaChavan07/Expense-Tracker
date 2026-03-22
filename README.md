@@ -13,7 +13,7 @@ A personal finance web application built with **ASP.NET Core 6 MVC** that helps 
 -  **Reports** — Date-range filtered analytics with monthly bar charts and category breakdowns
 -  **Settings** — Update profile (username/email) and change password
 -  **Navbar** — Notification panel, message panel, and profile dropdown
-- 🇮🇳 **INR Currency** — All amounts displayed in ₹ using Indian number formatting
+
 
 ---
 
@@ -50,7 +50,7 @@ Before running this project, make sure you have the following installed:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/CodAffection/Expense-Tracker-App-in-Asp.Net-Core-MVC.git
+git clone https://github.com/SaniyaChavan07/Expense-Tracker.git
 cd "Expense-Tracker-App"
 ```
 
